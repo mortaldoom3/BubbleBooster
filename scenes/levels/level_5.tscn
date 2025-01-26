@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://difhgbt5ou0a5"]
+[gd_scene load_steps=18 format=3 uid="uid://difhgbt5ou0a5"]
 
 [ext_resource type="Texture2D" uid="uid://f1fjpcjfkngd" path="res://assets/Panoramas/level_1.exr" id="1_q7xkc"]
 [ext_resource type="PackedScene" uid="uid://dug35krns8nnl" path="res://scenes/player/player.tscn" id="2_lqlk2"]
+[ext_resource type="Script" path="res://scenes/cameras/vertical_camera_3d.gd" id="3_qlbek"]
 [ext_resource type="PackedScene" uid="uid://cqmnftva28wa7" path="res://scenes/landing/launchpad.tscn" id="4_gvqnd"]
 [ext_resource type="PackedScene" uid="uid://c1owgpwn7haca" path="res://scenes/landing/landingpad.tscn" id="5_re6uw"]
 [ext_resource type="PackedScene" uid="uid://cxjqi44fdobgs" path="res://scenes/levels/background_03.tscn" id="5_x0jpr"]
@@ -51,6 +52,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.76165, 0.691946, 0)
 
 [node name="VerticalCamera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.26178, 6.46462)
+script = ExtResource("3_qlbek")
 
 [node name="LaunchPad" parent="." instance=ExtResource("4_gvqnd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.67621, 0.171396, 0)
