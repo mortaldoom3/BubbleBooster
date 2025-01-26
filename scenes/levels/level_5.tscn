@@ -59,7 +59,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.67621, 0.171396, 0)
 
 [node name="LandingPad" parent="." instance=ExtResource("5_re6uw")]
 transform = Transform3D(0.966622, -0.170425, 0.191301, 0.256205, 0.642989, -0.721751, 0, 0.746673, 0.665191, 6.06581, 23.8207, 0)
-file_path = "res://scenes/ui/menu.tscn"
+file_path = "res://scenes/ui/about.tscn"
 
 [node name="Background02" parent="." instance=ExtResource("5_x0jpr")]
 
