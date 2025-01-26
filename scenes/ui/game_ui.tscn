@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddpn83pv2fimy"]
+
+[ext_resource type="Script" path="res://scenes/ui/game_ui.gd" id="1_ggrai"]
+[ext_resource type="FontFile" uid="uid://bf0h6ctalomy0" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="1_k1qpl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_552qe"]
+font = ExtResource("1_k1qpl")
+font_size = 32
+font_color = Color(1, 0.87451, 0.133333, 1)
+outline_size = 11
+outline_color = Color(0.0857924, 0.0857924, 0.0857923, 1)
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ggrai")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="LevelNumber" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="MarginContainer/LevelNumber"]
+layout_mode = 2
+text = "Level : 00"
+label_settings = SubResource("LabelSettings_552qe")

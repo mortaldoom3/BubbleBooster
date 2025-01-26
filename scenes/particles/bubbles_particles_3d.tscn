@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://20nf7ugv42wf"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kpdh4"]
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+gravity = Vector3(0, 0, 0)
+damping_min = 5.0
+damping_max = 6.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gp653"]
+transparency = 1
+albedo_color = Color(0.588235, 1, 1, 0.0784314)
+metallic_specular = 0.6
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.441818, 0.817311, 0.911654, 1)
+emission_energy_multiplier = 4.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_j1dhh"]
+material = SubResource("StandardMaterial3D_gp653")
+radius = 0.08
+height = 0.16
+radial_segments = 32
+rings = 16
+
+[node name="BubblesParticles3D" type="GPUParticles3D"]
+cast_shadow = 0
+amount = 32
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_kpdh4")
+draw_pass_1 = SubResource("SphereMesh_j1dhh")

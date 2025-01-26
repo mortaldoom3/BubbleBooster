@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvytunqfiqeee"]
+
+[ext_resource type="Script" path="res://scenes/obstacles/fish.gd" id="1_7l6xs"]
+[ext_resource type="PackedScene" uid="uid://2wyr4wngwy17" path="res://assets/fish01.tscn" id="2_n0dgj"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dnpmr"]
+radius = 0.674929
+
+[sub_resource type="Animation" id="Animation_8f3fr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fish01:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.785398, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_grhpa"]
+resource_name = "fish"
+length = 1.06667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fish01:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.533333, 0.8, 1.06667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.785398, 0), Vector3(0.349066, -0.785398, 0), Vector3(0, -0.785398, 0), Vector3(-0.349066, -0.785398, 0), Vector3(-4.38094e-06, -0.785398, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_22jr1"]
+_data = {
+"RESET": SubResource("Animation_8f3fr"),
+"fish": SubResource("Animation_grhpa")
+}
+
+[node name="Fish" type="AnimatableBody3D" groups=["obstacle"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_7l6xs")
+duration = 2.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.109424, 0, 0)
+shape = SubResource("SphereShape3D_dnpmr")
+
+[node name="fish01" parent="." instance=ExtResource("2_n0dgj")]
+transform = Transform3D(1.41421, 0, -1.41421, 0, 2, 0, 1.41421, 0, 1.41421, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_22jr1")
+}
+autoplay = "fish"

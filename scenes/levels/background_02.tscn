@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://6573wa2c406h"]
+
+[ext_resource type="PackedScene" uid="uid://evjn4vsmg8un" path="res://assets/beam01.tscn" id="1_r3sg6"]
+[ext_resource type="PackedScene" uid="uid://djbyfmgh7ttfu" path="res://assets/scenary/ground.glb" id="2_h3ine"]
+[ext_resource type="PackedScene" uid="uid://b17ql02scjq1f" path="res://assets/col01.tscn" id="3_50f50"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rux6n"]
+height = 7.27771
+radius = 0.596853
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jewbk"]
+height = 7.27771
+radius = 0.596853
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fp761"]
+size = Vector3(55.2343, 1, 1.73376)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_552u0"]
+size = Vector3(19.4507, 0.664551, 9.41275)
+
+[node name="Background01" type="StaticBody3D" groups=["obstacle"]]
+collision_layer = 4
+collision_mask = 0
+
+[node name="Beam01" parent="." instance=ExtResource("1_r3sg6")]
+transform = Transform3D(-3.49691e-07, -8, 0, 8, -3.49691e-07, 0, 0, 0, 8, -7.88701, 7.70864, 0)
+
+[node name="Beam02" parent="." instance=ExtResource("1_r3sg6")]
+transform = Transform3D(-3.49691e-07, 8, 0, -8, -3.49691e-07, 0, 0, 0, 8, 0.109913, 7.70864, 0)
+
+[node name="Beam03" parent="." instance=ExtResource("1_r3sg6")]
+transform = Transform3D(-3.49691e-07, -8, 0, 8, -3.49691e-07, 0, 0, 0, 8, 8.10574, 7.70864, 0)
+
+[node name="ground" parent="." instance=ExtResource("2_h3ine")]
+
+[node name="ground2" parent="." instance=ExtResource("2_h3ine")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9157, 0, 0)
+
+[node name="ground3" parent="." instance=ExtResource("2_h3ine")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.8894, 0, 0)
+
+[node name="col02" parent="." instance=ExtResource("3_50f50")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 48.1874, 3.54025, 0)
+
+[node name="col01" parent="." instance=ExtResource("3_50f50")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -8.02765, 3.54025, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.01309, 3.68858, 0)
+shape = SubResource("CylinderShape3D_rux6n")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.2032, 3.68858, 0)
+shape = SubResource("CylinderShape3D_jewbk")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9148, 7.3138, 0.0458374)
+shape = SubResource("BoxShape3D_fp761")
+
+[node name="Beam04" parent="." instance=ExtResource("1_r3sg6")]
+transform = Transform3D(-3.49691e-07, -8, 0, 8, -3.49691e-07, 0, 0, 0, 8, 16.0567, 7.70864, 0)
+
+[node name="Beam05" parent="." instance=ExtResource("1_r3sg6")]
+transform = Transform3D(-3.49691e-07, 8, 0, -8, -3.49691e-07, 0, 0, 0, 8, 24.0536, 7.70864, 0)
+
+[node name="Beam06" parent="." instance=ExtResource("1_r3sg6")]
+transform = Transform3D(-3.49691e-07, -8, 0, 8, -3.49691e-07, 0, 0, 0, 8, 32.0494, 7.70864, 0)
+
+[node name="Beam07" parent="." instance=ExtResource("1_r3sg6")]
+transform = Transform3D(-3.49691e-07, 8, 0, -8, -3.49691e-07, 0, 0, 0, 8, 39.975, 7.70864, 0)
+
+[node name="Beam08" parent="." instance=ExtResource("1_r3sg6")]
+transform = Transform3D(-3.49691e-07, -8, 0, 8, -3.49691e-07, 0, 0, 0, 8, 47.9708, 7.70864, 0)
+
+[node name="Ground" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.218506, -0.167725, -0.118515)
+shape = SubResource("BoxShape3D_552u0")

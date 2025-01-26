@@ -1,0 +1,206 @@
+[gd_scene load_steps=16 format=3 uid="uid://dug35krns8nnl"]
+
+[ext_resource type="PackedScene" uid="uid://csc3ro1cis58h" path="res://assets/player/bubble01.tscn" id="1_52q0x"]
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_jd4dy"]
+[ext_resource type="PackedScene" uid="uid://20nf7ugv42wf" path="res://scenes/particles/bubbles_particles_3d.tscn" id="4_5ii7q"]
+[ext_resource type="PackedScene" uid="uid://urd02n4gdqqi" path="res://scenes/particles/explosion_particles.tscn" id="4_8d2ak"]
+[ext_resource type="AudioStream" uid="uid://dp4aeeaavtfsp" path="res://assets/audio/bubble/splash.ogg" id="4_xm28v"]
+[ext_resource type="AudioStream" uid="uid://v7dhlcqxayen" path="res://assets/audio/bubble/vanish.wav" id="5_18uc2"]
+[ext_resource type="PackedScene" uid="uid://c08iatns170h7" path="res://scenes/particles/success_particles.tscn" id="5_axv1i"]
+[ext_resource type="AudioStream" uid="uid://cppxlgca828jq" path="res://assets/audio/bubble/mixkit-ocean-game-movement-water-air-tank-bubbles-huge-long-3017.wav" id="6_j6jux"]
+[ext_resource type="Texture2D" uid="uid://c6v2la4111a1l" path="res://assets/ui/starlive.png" id="9_qqhab"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2lb5p"]
+radius = 0.533089
+
+[sub_resource type="Shader" id="Shader_su6fc"]
+code = "shader_type spatial;
+
+uniform vec4 base_color : source_color = vec4(0.0, 0.5, 1.0, 1.0);
+uniform vec4 pulse_color : source_color = vec4(0.5, 0.7, 1.0, 1.0);
+uniform float speed : hint_range(0.1, 5.0) = 1.0;
+uniform float scale : hint_range(0.1, 10.0) = 1.0;
+uniform float distortion : hint_range(0.1, 5.0) = 1.0;
+uniform float shield_power : hint_range(0.0, 1.0) = 0.8;
+uniform float rim_power : hint_range(0.0, 5.0) = 2.0;
+uniform float pulse_frequency : hint_range(0.1, 10.0) = 2.0;
+
+float noise(vec3 p) {
+    return fract(sin(dot(p, vec3(12.9898, 78.233, 45.5432))) * 43758.5453);
+}
+
+float fbm(vec3 p) {
+    float value = 0.0;
+    float amplitude = 0.5;
+    float frequency = 1.0;
+    for (int i = 0; i < 5; i++) {
+        value += amplitude * noise(p * frequency);
+        amplitude *= 0.5;
+        frequency *= 2.0;
+    }
+    return value;
+}
+
+void vertex() {
+    float displacement = fbm(VERTEX * scale + vec3(0.0, 0.0, TIME * speed)) * distortion;
+    VERTEX += NORMAL * displacement * 0.1;
+}
+
+void fragment() {
+    vec3 view_dir = normalize(VIEW);
+    vec3 normal = normalize(NORMAL);
+    
+    // Fresnel effect for shield rim
+    float fresnel = pow(1.0 - dot(normal, view_dir), rim_power);
+    
+    // Noise-based distortion
+    vec3 noise_pos = VERTEX * scale + vec3(0.0, 0.0, TIME * speed);
+    float noise_val = fbm(noise_pos);
+    
+    // Pulsating effect
+    float pulse = (sin(TIME * pulse_frequency) + 1.0) * 0.5;
+    
+    // Combine effects
+    float shield_intensity = mix(shield_power, 1.0, fresnel);
+    shield_intensity *= mix(0.8, 1.2, noise_val);
+    shield_intensity *= mix(0.9, 1.1, pulse);
+    
+    // Color mixing
+    vec4 final_color = mix(base_color, pulse_color, pulse * 0.5);
+    final_color.rgb *= shield_intensity;
+    
+    // material properties
+    ALBEDO = final_color.rgb;
+    EMISSION = final_color.rgb * shield_intensity * 2.0;
+    ALPHA = clamp(shield_intensity * 1.5, 0.0, 1.0);
+    ROUGHNESS = 0.1;
+    METALLIC = 0.8;
+    
+    vec3 normal_distortion = vec3(noise_val, noise_val, 1.0) * 0.1;
+    NORMAL_MAP = normalize(mix(NORMAL, normal_distortion, 0.5));
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yx73r"]
+render_priority = 0
+shader = SubResource("Shader_su6fc")
+shader_parameter/base_color = Color(0.811765, 0.964706, 0.0588235, 1)
+shader_parameter/pulse_color = Color(0.963753, 0.721206, 0.263336, 1)
+shader_parameter/speed = 0.445
+shader_parameter/scale = 1.232
+shader_parameter/distortion = 0.15
+shader_parameter/shield_power = 0.206
+shader_parameter/rim_power = 0.555
+shader_parameter/pulse_frequency = 4.398
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_i8eix"]
+material = SubResource("ShaderMaterial_yx73r")
+top_radius = 0.001
+bottom_radius = 0.05
+height = 0.12
+radial_segments = 12
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_au6r7"]
+render_priority = 0
+shader = SubResource("Shader_su6fc")
+shader_parameter/base_color = Color(0.811765, 0.964706, 0.0588235, 1)
+shader_parameter/pulse_color = Color(0.964706, 0.721569, 0.0784314, 1)
+shader_parameter/speed = 0.445
+shader_parameter/scale = 1.232
+shader_parameter/distortion = 0.196
+shader_parameter/shield_power = 0.472
+shader_parameter/rim_power = 0.555
+shader_parameter/pulse_frequency = 5.017
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_arshu"]
+material = SubResource("ShaderMaterial_au6r7")
+top_radius = 0.01
+bottom_radius = 0.02
+height = 0.1
+
+[node name="Player" type="RigidBody3D"]
+collision_mask = 6
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+contact_monitor = true
+max_contacts_reported = 1
+linear_damp = 1.0
+angular_damp = 10.0
+script = ExtResource("1_jd4dy")
+
+[node name="Bubble01" parent="." instance=ExtResource("1_52q0x")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+shape = SubResource("SphereShape3D_2lb5p")
+
+[node name="Arrow" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.702795, 0)
+mesh = SubResource("CylinderMesh_i8eix")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Arrow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100995, 0)
+mesh = SubResource("CylinderMesh_arshu")
+skeleton = NodePath("../..")
+
+[node name="LeftBubbleParticles" parent="." instance=ExtResource("4_5ii7q")]
+transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, -0.38, -0.12, 0)
+emitting = false
+
+[node name="RightBubbleParticles" parent="." instance=ExtResource("4_5ii7q")]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0.38, -0.12, 0)
+emitting = false
+
+[node name="ExplosionParticles" parent="." instance=ExtResource("4_8d2ak")]
+
+[node name="SuccessParticles" parent="." instance=ExtResource("5_axv1i")]
+
+[node name="ExplosionAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xm28v")
+
+[node name="SuccessAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_18uc2")
+volume_db = -10.0
+
+[node name="BubbleAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_j6jux")
+volume_db = -10.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="1" type="Sprite2D" parent="Control/MarginContainer/HBoxContainer"]
+position = Vector2(174, 64)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("9_qqhab")
+
+[node name="2" type="Sprite2D" parent="Control/MarginContainer/HBoxContainer"]
+position = Vector2(109, 64)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("9_qqhab")
+
+[node name="3" type="Sprite2D" parent="Control/MarginContainer/HBoxContainer"]
+position = Vector2(47, 64)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("9_qqhab")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,217 @@
+[gd_scene load_steps=15 format=3 uid="uid://nkcacivkn7ha"]
+
+[ext_resource type="Script" path="res://scenes/ui/about.gd" id="1_8kipp"]
+[ext_resource type="Texture2D" uid="uid://dov5uq473c6cr" path="res://assets/ui/Menu02.png" id="2_t32i6"]
+[ext_resource type="Texture2D" uid="uid://byqvpv034qnqn" path="res://assets/ui/yellow_button00.png" id="3_0rmbx"]
+[ext_resource type="Texture2D" uid="uid://cs0li20dp2u8c" path="res://assets/ui/green_button00.png" id="4_5fcts"]
+[ext_resource type="Texture2D" uid="uid://duc4o3v6o18gf" path="res://assets/ui/blue_button00.png" id="5_vyhfv"]
+[ext_resource type="FontFile" uid="uid://bf0h6ctalomy0" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="6_1dhnn"]
+[ext_resource type="AudioStream" uid="uid://n2asnmfo5ngp" path="res://assets/audio/short-ukulele-jingle-cheerful-happy-and-bright-148415.mp3" id="8_m0k3e"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ikm0h"]
+font = ExtResource("6_1dhnn")
+font_size = 40
+font_color = Color(0.771166, 1, 0.797358, 1)
+outline_size = 11
+outline_color = Color(0.132927, 0.132927, 0.132927, 1)
+shadow_size = 32
+shadow_color = Color(0, 0, 0, 0.184314)
+shadow_offset = Vector2(-9.21, 6.385)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h4lbm"]
+font = ExtResource("6_1dhnn")
+font_size = 40
+font_color = Color(0.771166, 1, 0.797358, 1)
+outline_size = 11
+outline_color = Color(0.132927, 0.132927, 0.132927, 1)
+shadow_size = 32
+shadow_color = Color(0, 0, 0, 0.184314)
+shadow_offset = Vector2(-9.21, 6.385)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0vtki"]
+font = ExtResource("6_1dhnn")
+font_size = 20
+font_color = Color(1, 1, 0.439216, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.454902)
+shadow_offset = Vector2(-3.235, 1.935)
+
+[sub_resource type="LabelSettings" id="LabelSettings_j2c80"]
+font = ExtResource("6_1dhnn")
+font_size = 30
+font_color = Color(0.964706, 0.662745, 0, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.454902)
+shadow_offset = Vector2(-3.235, 1.935)
+
+[sub_resource type="Animation" id="Animation_2h5xc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(303, 368)]
+}
+
+[sub_resource type="Animation" id="Animation_gwhkb"]
+resource_name = "slide"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(303, 368), Vector2(303, 100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tkhsl"]
+_data = {
+"RESET": SubResource("Animation_2h5xc"),
+"slide": SubResource("Animation_gwhkb")
+}
+
+[node name="About" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8kipp")
+nextLevel = "res://scenes/levels/level_1.tscn"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -4.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_t32i6")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 382.0
+offset_top = 150.0
+offset_right = 579.0
+offset_bottom = 361.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+
+[node name="PlayButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_0rmbx")
+texture_pressed = ExtResource("4_5fcts")
+texture_hover = ExtResource("5_vyhfv")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/PlayButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PLAY"
+label_settings = SubResource("LabelSettings_ikm0h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuitButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_0rmbx")
+texture_pressed = ExtResource("4_5fcts")
+texture_hover = ExtResource("5_vyhfv")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/QuitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RETURN"
+label_settings = SubResource("LabelSettings_h4lbm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -337.0
+offset_top = 8.0
+offset_right = 357.0
+offset_bottom = 312.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "GAME JAM 2025 - PARAGUAY
+
+GAME DESIGN, 3D ART, 2D ART : Alefranart
+
+PROGRAMMING : Alefranart
+
+programming : Antrox
+
+music by pixabay (no copyright music)
+"
+label_settings = SubResource("LabelSettings_0vtki")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "thakyou very much for this gamejam !
+"
+label_settings = SubResource("LabelSettings_j2c80")
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_m0k3e")
+volume_db = -15.0
+autoplay = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tkhsl")
+}
+autoplay = "slide"
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

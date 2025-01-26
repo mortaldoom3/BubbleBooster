@@ -1,0 +1,117 @@
+[gd_scene load_steps=17 format=3 uid="uid://difhgbt5ou0a5"]
+
+[ext_resource type="Texture2D" uid="uid://f1fjpcjfkngd" path="res://assets/Panoramas/level_1.exr" id="1_q7xkc"]
+[ext_resource type="PackedScene" uid="uid://dug35krns8nnl" path="res://scenes/player/player.tscn" id="2_lqlk2"]
+[ext_resource type="PackedScene" uid="uid://cqmnftva28wa7" path="res://scenes/landing/launchpad.tscn" id="4_gvqnd"]
+[ext_resource type="PackedScene" uid="uid://c1owgpwn7haca" path="res://scenes/landing/landingpad.tscn" id="5_re6uw"]
+[ext_resource type="PackedScene" uid="uid://cxjqi44fdobgs" path="res://scenes/levels/background_03.tscn" id="5_x0jpr"]
+[ext_resource type="PackedScene" uid="uid://c6yuxqr04feck" path="res://assets/cliff01.tscn" id="7_s4xl0"]
+[ext_resource type="PackedScene" uid="uid://b48ardq18mvhs" path="res://assets/scenary/cliff04.glb" id="8_86y01"]
+[ext_resource type="PackedScene" uid="uid://gvitugixt1eh" path="res://assets/scenary/prop03.glb" id="10_yobe5"]
+[ext_resource type="PackedScene" uid="uid://bvytunqfiqeee" path="res://scenes/obstacles/fish.tscn" id="11_d8u1h"]
+[ext_resource type="PackedScene" uid="uid://b0vmlehjc0c6a" path="res://scenes/obstacles/spikes.tscn" id="12_8vde0"]
+[ext_resource type="AudioStream" uid="uid://de0y1dx0lafa0" path="res://assets/audio/bright-sunshiny-day-195254.mp3" id="12_ed3ta"]
+[ext_resource type="PackedScene" uid="uid://ccejma6qm82b4" path="res://scenes/obstacles/shark.tscn" id="13_7csqg"]
+[ext_resource type="PackedScene" uid="uid://ddpn83pv2fimy" path="res://scenes/ui/game_ui.tscn" id="15_aprac"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_hde42"]
+panorama = ExtResource("1_q7xkc")
+
+[sub_resource type="Sky" id="Sky_idf4h"]
+sky_material = SubResource("PanoramaSkyMaterial_hde42")
+
+[sub_resource type="Environment" id="Environment_6ypxx"]
+background_mode = 2
+background_energy_multiplier = 0.8
+sky = SubResource("Sky_idf4h")
+sky_custom_fov = 125.9
+sky_rotation = Vector3(-0.619592, -3.95666, 0.466003)
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.015
+volumetric_fog_albedo = Color(0.388235, 1, 1, 1)
+volumetric_fog_emission_energy = 2.0
+volumetric_fog_anisotropy = -0.26
+
+[node name="Level_1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6ypxx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.25, 0.400765, -0.302164, 0.864919, -0.298983, 0.849232, 0.435218, 0, 4.39773, 1.4592)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_lqlk2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.76165, 0.691946, 0)
+
+[node name="VerticalCamera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.26178, 6.46462)
+
+[node name="LaunchPad" parent="." instance=ExtResource("4_gvqnd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.67621, 0.171396, 0)
+
+[node name="LandingPad" parent="." instance=ExtResource("5_re6uw")]
+transform = Transform3D(0.966622, -0.170425, 0.191301, 0.256205, 0.642989, -0.721751, 0, 0.746673, 0.665191, 6.06581, 23.8207, 0)
+file_path = "res://scenes/ui/menu.tscn"
+
+[node name="Background02" parent="." instance=ExtResource("5_x0jpr")]
+
+[node name="Background" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.2457)
+
+[node name="cliff01" parent="Background" instance=ExtResource("7_s4xl0")]
+transform = Transform3D(11.8173, 0, -9.23863, 0, 15, 0, 9.23863, 0, 11.8173, -10.9933, 3.61002, 0)
+
+[node name="cliff02" parent="Background" instance=ExtResource("7_s4xl0")]
+transform = Transform3D(15.7187, 0, 25.5524, 0, 30, 0, -25.5524, 0, 15.7187, 3.21862, 3.61002, -15.4023)
+
+[node name="cliff03" parent="Background" instance=ExtResource("7_s4xl0")]
+transform = Transform3D(15.7187, 0, 25.5524, 0, 30, 0, -25.5524, 0, 15.7187, 27.6267, 3.61002, 3.57277)
+
+[node name="prop03" parent="Background" instance=ExtResource("10_yobe5")]
+transform = Transform3D(9.33292, 0, -3.59117, 0, 10, 0, 3.59117, 0, 9.33292, 6.24012, 4.9493, 11.2061)
+
+[node name="cliff04" parent="Background" instance=ExtResource("8_86y01")]
+transform = Transform3D(3.65033, 0, 39.8331, 0, 40, 0, -39.8331, 0, 3.65033, -39.9467, 1.30856, -21.2574)
+
+[node name="Obstacles" type="Node3D" parent="."]
+
+[node name="Spikes" parent="Obstacles" instance=ExtResource("12_8vde0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4978, 7.27975, 0)
+
+[node name="Spikes2" parent="Obstacles" instance=ExtResource("12_8vde0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.45921, 7.27975, 0)
+
+[node name="Spikes3" parent="Obstacles" instance=ExtResource("12_8vde0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.236799, 17.52, 0)
+
+[node name="Shark" parent="Obstacles" instance=ExtResource("13_7csqg")]
+transform = Transform3D(-0.0728901, 0, -0.99734, 0, 1, 0, 0.99734, 0, -0.0728901, -4.71888, 11.3994, 0)
+destination = Vector3(22, 0, 0)
+duration = 5.0
+
+[node name="Shark2" parent="Obstacles" instance=ExtResource("13_7csqg")]
+transform = Transform3D(-0.0728901, 0, -0.99734, 0, 1, 0, 0.99734, 0, -0.0728901, -5.14859, 24.4694, 0)
+destination = Vector3(22, 0, 0)
+duration = 5.0
+
+[node name="Fish" parent="Obstacles" instance=ExtResource("11_d8u1h")]
+transform = Transform3D(0.821915, 0, -0.56961, 0, 1, 0, 0.56961, 0, 0.821915, 5.99974, 19.1347, 0)
+destination = Vector3(0, 3, 0)
+duration = 3.0
+
+[node name="LevelAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_ed3ta")
+volume_db = -20.0
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUI" parent="CanvasLayer" instance=ExtResource("15_aprac")]
+mouse_filter = 2
+level_number = 5

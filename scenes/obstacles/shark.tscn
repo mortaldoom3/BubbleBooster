@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://ccejma6qm82b4"]
+
+[ext_resource type="Script" path="res://scenes/obstacles/shark.gd" id="1_vdpnn"]
+[ext_resource type="PackedScene" uid="uid://1u4d8vetlsof" path="res://assets/shark.tscn" id="2_507gd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wkt75"]
+radius = 0.964028
+height = 3.6524
+
+[sub_resource type="Animation" id="Animation_8f3fr"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_grhpa"]
+resource_name = "fish"
+length = 1.06667
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_22jr1"]
+_data = {
+"RESET": SubResource("Animation_8f3fr"),
+"fish": SubResource("Animation_grhpa")
+}
+
+[node name="Shark" type="AnimatableBody3D" groups=["obstacle"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.565, 0, 0)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_vdpnn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.109424, 0, 0)
+shape = SubResource("CapsuleShape3D_wkt75")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_22jr1")
+}
+autoplay = "fish"
+
+[node name="shark" parent="." instance=ExtResource("2_507gd")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)

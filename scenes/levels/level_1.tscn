@@ -1,0 +1,114 @@
+[gd_scene load_steps=15 format=3 uid="uid://br6t806th8cdn"]
+
+[ext_resource type="Texture2D" uid="uid://f1fjpcjfkngd" path="res://assets/Panoramas/level_1.exr" id="1_ip5yj"]
+[ext_resource type="PackedScene" uid="uid://dug35krns8nnl" path="res://scenes/player/player.tscn" id="1_minf8"]
+[ext_resource type="PackedScene" uid="uid://c1owgpwn7haca" path="res://scenes/landing/landingpad.tscn" id="3_l5sr2"]
+[ext_resource type="PackedScene" uid="uid://cqmnftva28wa7" path="res://scenes/landing/launchpad.tscn" id="3_vw0qt"]
+[ext_resource type="PackedScene" uid="uid://teef4fqhyr81" path="res://scenes/levels/background_01.tscn" id="4_ppadg"]
+[ext_resource type="PackedScene" uid="uid://c6yuxqr04feck" path="res://assets/cliff01.tscn" id="5_k2y8t"]
+[ext_resource type="PackedScene" uid="uid://b5t8cgbf8dshh" path="res://assets/scenary/cliff03.glb" id="7_anpe1"]
+[ext_resource type="AudioStream" uid="uid://obwviqqr3aa8" path="res://assets/audio/level1/only-ukulele-version-60s-10812.mp3" id="7_bwoeh"]
+[ext_resource type="PackedScene" uid="uid://ddpn83pv2fimy" path="res://scenes/ui/game_ui.tscn" id="8_kners"]
+[ext_resource type="FontFile" uid="uid://bf0h6ctalomy0" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="10_cebrq"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_hde42"]
+panorama = ExtResource("1_ip5yj")
+
+[sub_resource type="Sky" id="Sky_idf4h"]
+sky_material = SubResource("PanoramaSkyMaterial_hde42")
+
+[sub_resource type="Environment" id="Environment_6ypxx"]
+background_mode = 2
+background_energy_multiplier = 0.8
+sky = SubResource("Sky_idf4h")
+sky_custom_fov = 125.9
+sky_rotation = Vector3(-0.619592, -3.95666, 0.466003)
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.015
+volumetric_fog_albedo = Color(0.388235, 1, 1, 1)
+volumetric_fog_emission_energy = 2.0
+volumetric_fog_anisotropy = -0.26
+
+[sub_resource type="LabelSettings" id="LabelSettings_4qoop"]
+font = ExtResource("10_cebrq")
+font_size = 20
+font_color = Color(1, 1, 0.439216, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.454902)
+shadow_offset = Vector2(-3.235, 1.935)
+
+[node name="Level_1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6ypxx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.25, 0.400765, -0.302164, 0.864919, -0.298983, 0.849232, 0.435218, 0, 4.39773, 1.4592)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_minf8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.69798, 1.13298, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.81822, 6.46462)
+
+[node name="LaunchPad" parent="." instance=ExtResource("3_vw0qt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6968, 0.607522, 0)
+
+[node name="LandingPad" parent="." instance=ExtResource("3_l5sr2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.06581, 0.630794, 0)
+file_path = "res://scenes/levels/level_2.tscn"
+
+[node name="Background01" parent="." instance=ExtResource("4_ppadg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.473241, 0)
+
+[node name="Background" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.2457)
+
+[node name="cliff01" parent="Background" instance=ExtResource("5_k2y8t")]
+transform = Transform3D(11.8173, 0, -9.23863, 0, 15, 0, 9.23863, 0, 11.8173, -10.9933, 3.61002, 0)
+
+[node name="cliff02" parent="Background" instance=ExtResource("5_k2y8t")]
+transform = Transform3D(15.7187, 0, 25.5524, 0, 30, 0, -25.5524, 0, 15.7187, 3.21862, 3.61002, -15.4023)
+
+[node name="cliff03" parent="Background" instance=ExtResource("7_anpe1")]
+transform = Transform3D(9.88064, 0, 38.7605, 0, 40, 0, -38.7605, 0, 9.88064, -42.3083, 5.51979, -18.8181)
+
+[node name="cliff04" parent="Background" instance=ExtResource("7_anpe1")]
+transform = Transform3D(27.5554, 0, -28.9948, 0, 40, 0, 28.9948, 0, 27.5554, 41.3436, 3.006, -18.8181)
+
+[node name="LevelAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_bwoeh")
+volume_db = -20.0
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUI" parent="CanvasLayer" instance=ExtResource("8_kners")]
+mouse_filter = 2
+level_number = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_left = 253.0
+offset_top = 92.0
+offset_right = 1005.0
+offset_bottom = 300.0
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+text = "press SPACE to float
+
+Balance yourself with \"A\" and \"D\"
+
+Don't crash into the walls and reach the finish line!
+
+"
+label_settings = SubResource("LabelSettings_4qoop")
+horizontal_alignment = 1

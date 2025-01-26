@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://csc3ro1cis58h"]
+
+[ext_resource type="Shader" path="res://shaders/bubble.gdshader" id="1_a3oxm"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_du1qd"]
+radius = 0.4
+height = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yv3be"]
+render_priority = 0
+shader = ExtResource("1_a3oxm")
+shader_parameter/base_color = Color(0, 0.5, 1, 1)
+shader_parameter/pulse_color = Color(0.5, 0.7, 1, 1)
+shader_parameter/speed = 0.1
+shader_parameter/scale = 1.841
+shader_parameter/distortion = 0.258
+shader_parameter/shield_power = 0.141
+shader_parameter/rim_power = 0.925
+shader_parameter/pulse_frequency = 0.965
+
+[node name="Bubble01" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_du1qd")
+surface_material_override/0 = SubResource("ShaderMaterial_yv3be")

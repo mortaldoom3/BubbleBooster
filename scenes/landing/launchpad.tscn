@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqmnftva28wa7"]
+
+[ext_resource type="Script" path="res://scenes/landing/landingpad.gd" id="1_uku3d"]
+[ext_resource type="PackedScene" uid="uid://y2ammk1j54op" path="res://assets/scenary/launch.glb" id="2_35jtv"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cr7rx"]
+height = 0.363931
+radius = 0.982968
+
+[node name="LaunchPad" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_uku3d")
+
+[node name="launch" parent="." instance=ExtResource("2_35jtv")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_cr7rx")

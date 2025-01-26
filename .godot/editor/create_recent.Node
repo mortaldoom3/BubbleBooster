@@ -1,0 +1,15 @@
+HBoxContainer
+MarginContainer
+Control
+Sprite2D
+TextureRect
+AnimationPlayer
+AudioStreamPlayer
+VBoxContainer
+Label
+RichTextLabel
+CanvasLayer
+TextureButton
+CollisionShape3D
+MeshInstance3D
+AnimatableBody3D

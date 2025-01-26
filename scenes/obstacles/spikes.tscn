@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0vmlehjc0c6a"]
+
+[ext_resource type="PackedScene" uid="uid://4ygxo7nd25ji" path="res://assets/spike01.tscn" id="1_q7cys"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bptko"]
+height = 3.93355
+radius = 0.729249
+
+[sub_resource type="Animation" id="Animation_yn264"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spike01:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8b5jj"]
+resource_name = "Rotate"
+length = 1.06667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spike01:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.533333, 0.8, 1.06667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0), Vector3(3.14159, 0, 0), Vector3(4.71239, 0, 0), Vector3(6.28319, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4dkm0"]
+_data = {
+"RESET": SubResource("Animation_yn264"),
+"Rotate": SubResource("Animation_8b5jj")
+}
+
+[node name="Spikes" type="StaticBody3D" groups=["obstacle"]]
+collision_layer = 4
+collision_mask = 0
+
+[node name="spike01" parent="." instance=ExtResource("1_q7cys")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_bptko")
+
+[node name="Rotate" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4dkm0")
+}
+autoplay = "Rotate"
+speed_scale = 0.3
