@@ -16,7 +16,7 @@ radius = 0.596853
 size = Vector3(55.2343, 1, 1.73376)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_552u0"]
-size = Vector3(19.4507, 0.664551, 9.41275)
+size = Vector3(60, 0.664551, 9.41275)
 
 [node name="Background01" type="StaticBody3D" groups=["obstacle"]]
 collision_layer = 4
@@ -73,5 +73,5 @@ transform = Transform3D(-3.49691e-07, 8, 0, -8, -3.49691e-07, 0, 0, 0, 8, 39.975
 transform = Transform3D(-3.49691e-07, -8, 0, 8, -3.49691e-07, 0, 0, 0, 8, 47.9708, 7.70864, 0)
 
 [node name="Ground" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.218506, -0.167725, -0.118515)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.7815, -0.167725, -0.118515)
 shape = SubResource("BoxShape3D_552u0")

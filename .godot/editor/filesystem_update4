@@ -1,4 +1,4 @@
-res://scenes/levels/level_5.tscn
+res://scenes/levels/background_02.tscn
 res://shaders/bubble.gdshader
 res://scenes/levels/level_1.tscn
 res://scenes/player/player.tscn
@@ -8,5 +8,5 @@ res://scenes/levels/level_3.tscn
 res://scenes/obstacles/fish.tscn
 res://scenes/ui/game_ui.tscn
 res://scenes/levels/level_4.tscn
-res://scenes/levels/background_02.tscn
+res://scenes/levels/level_5.tscn
 res://scenes/levels/background_03.tscn
